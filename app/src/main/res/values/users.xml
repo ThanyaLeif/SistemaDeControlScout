@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opciones_usuarios">
+        <item>Scout</item>
+        <item>Padre de familia</item>
+        <item>Asesor</item>
+        <item>Scouter</item>
+        <item>Administrador</item>
+    </string-array>
+</resources>

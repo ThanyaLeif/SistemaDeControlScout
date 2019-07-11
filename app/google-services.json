@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "672753873685",
+    "firebase_url": "https://sistemacontrolscout.firebaseio.com",
+    "project_id": "sistemacontrolscout",
+    "storage_bucket": "sistemacontrolscout.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672753873685:android:610646e97c47045f",
+        "android_client_info": {
+          "package_name": "com.example.tanialeif.sistemadecontrolscout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672753873685-8uqe714nfqtiqtr09rm3ghai3oht2h30.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tanialeif.sistemadecontrolscout",
+            "certificate_hash": "672b5189167fcb33e2ce004454b603063d28ae1b"
+          }
+        },
+        {
+          "client_id": "672753873685-5ftp0g28oqkf1f0kv6bj6bh0tplduulq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCNilPXqhSOG4uuRB32uj3KZF_D0h3yJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672753873685-5ftp0g28oqkf1f0kv6bj6bh0tplduulq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
