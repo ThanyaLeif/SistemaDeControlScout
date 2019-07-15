@@ -1,5 +1,6 @@
 package com.example.tanialeif.sistemadecontrolscout;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +12,22 @@ import android.widget.Toast;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import com.example.tanialeif.sistemadecontrolscout.Models.Admin;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class Login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private DatabaseReference mDatabase;
     Spinner spnUsuarios;
+
+    private long maxId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +57,23 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
             spnUsuarios.setOnItemSelectedListener(this);
         }
 
-        /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.opciones_usuarios, android.R.layout.simple_spinner_item);
-        spnUsuarios.setAdapter(adapter);*/
+        //inicialice the database transactions
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Admins");
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    maxId = dataSnapshot.getChildrenCount();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        
     }
 
     @Override
@@ -59,5 +85,40 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void writeNewUser(String username, String password){
+        Admin admin = new Admin(username, password);
+        mDatabase.child(String.valueOf(maxId + 1)).setValue(admin);
+        Toast.makeText(this, "Data inserted succesfully", Toast.LENGTH_SHORT).show();
+    }
+
+    private void validate(final String username, final String password){
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean finded = false;
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String cUsername = snapshot.child("username").getValue(String.class);
+                    String cPassword = snapshot.child("password").getValue(String.class);
+
+                    if(username == cUsername && password == cPassword){
+                        finded = true;
+                        break;
+                    }
+                }
+                if(finded){
+                    Toast.makeText(Login.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
