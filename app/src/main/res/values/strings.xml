@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SistemaDeControlScout</string>
+    <string name="app_name">Sistema de Control Scout</string>
+    <string name="open">Abrir</string>
+    <string name="close">Cerrar</string>
 </resources>

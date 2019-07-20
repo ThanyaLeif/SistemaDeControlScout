@@ -1,5 +1,6 @@
 package com.example.tanialeif.sistemadecontrolscout;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,13 +74,12 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
 
             }
         });
-        
+
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         CustomItemsUsers items = (CustomItemsUsers) parent.getSelectedItem();
-        Toast.makeText(this, items.getSpinnerText(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -108,7 +108,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                     }
                 }
                 if(finded){
-                    Toast.makeText(Login.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Login.this, MenuAdmin.class);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
