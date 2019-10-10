@@ -1,15 +1,20 @@
 package com.example.tanialeif.sistemadecontrolscout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,11 +27,19 @@ import com.example.tanialeif.sistemadecontrolscout.Models.Admin;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Login extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private DatabaseReference mDatabase;
+    //private DatabaseReference mDatabase;
     Spinner spnUsuarios;
+    Button btnLogin;
+    EditText txtUsername, txtPassword;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+    private String userType = "Admin";
 
     private long maxId;
 
@@ -41,6 +54,9 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
         super.onStart();
 
         spnUsuarios = (Spinner)findViewById(R.id.spnUsuarios);
+        btnLogin = (Button)findViewById(R.id.btnLogin);
+        txtPassword = (EditText)findViewById(R.id.txtPassword);
+        txtUsername = (EditText)findViewById(R.id.txtUsername);
 
         // create spinnerItemList for spinner
         ArrayList<CustomItemsUsers> customList = new ArrayList<>();
@@ -58,51 +74,40 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
             spnUsuarios.setOnItemSelectedListener(this);
         }
 
-        //inicialice the database transactions
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Admins");
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        inicializarFirebase();
+        //insertarAdmin("root", "root");
+        btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    maxId = dataSnapshot.getChildrenCount();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onClick(View v){
+                validate(txtUsername.getText().toString(), txtPassword.getText().toString(), userType);
             }
         });
-
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        CustomItemsUsers items = (CustomItemsUsers) parent.getSelectedItem();
+    private void inicializarFirebase(){
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    private void writeNewUser(String username, String password){
-        Admin admin = new Admin(username, password);
-        mDatabase.child(String.valueOf(maxId + 1)).setValue(admin);
+    private void insertarAdmin(String username, String password){
+        Admin admin = new Admin();
+        admin.uid = (UUID.randomUUID().toString());
+        admin.username = username;
+        admin.password = password;
+        databaseReference.child("Admin").child(admin.uid).setValue(admin);
         Toast.makeText(this, "Data inserted succesfully", Toast.LENGTH_SHORT).show();
     }
 
-    private void validate(final String username, final String password){
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void validate(final String username, final String password, final String type){
+        Toast.makeText(Login.this, type, Toast.LENGTH_SHORT).show();
+        databaseReference.child("Admin").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 boolean finded = false;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    String cUsername = snapshot.child("username").getValue(String.class);
-                    String cPassword = snapshot.child("password").getValue(String.class);
-
-                    if(username == cUsername && password == cPassword){
+                    Admin admin = snapshot.getValue(Admin.class);
+                    if(admin.username.equals(username) && admin.password.equals(password)){
                         finded = true;
                         break;
                     }
@@ -121,5 +126,16 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
 
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        CustomItemsUsers items = (CustomItemsUsers) parent.getSelectedItem();
+        userType = items.getSpinnerText();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
