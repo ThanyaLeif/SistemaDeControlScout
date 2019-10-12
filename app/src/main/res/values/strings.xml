@@ -2,6 +2,12 @@
     <string name="app_name">Sistema de Control Scout</string>
     <string name="open">Abrir</string>
     <string name="close">Cerrar</string>
+    <string-array name="niveles">
+        <item>Manada</item>
+        <item>Tropa</item>
+        <item>Comunidad</item>
+        <item>Clan</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

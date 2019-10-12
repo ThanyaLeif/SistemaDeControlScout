@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetalleScout"
+    android:orientation="vertical"
+    android:background="#ddd">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DATOS PERSONALES"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
+            android:padding="2dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtNombreScout"
+            android:hint="Nombre"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_nombre_scout_24dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtApellidoPatScout"
+            android:hint="Apellido paterno"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_person_white_24dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtApellidoMatScout"
+            android:hint="Apellido materno"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_person_white_24dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDireccionScout"
+            android:hint="Dirección"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_direccion_scout_black_24dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtTelefonoScout"
+            android:hint="Telefono"
+            android:inputType="phone"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_telefono_scout_black_24dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:id="@+id/lblFechaNacScout"
+                android:text="--/--/--"
+                android:background="#fff"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="12dp"
+                android:layout_marginVertical="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:drawablePadding="15dp"
+                android:drawableLeft="@drawable/ic_fecha_scout_24dp"
+                android:textAlignment="center"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:padding="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="5dp"
+                android:background="@color/colorPrimary"
+                android:id="@+id/btnFechaNacScout"
+                android:text="Fecha de nacimiento"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DATOS DEL SCOUT"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
+            android:padding="2dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtCumScout"
+            android:hint="CUM"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_usuario_scout_24dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtContraseniaScout"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_contrasenia_scout_24dp"/>
+
+        <Spinner
+            android:id="@+id/spnNivelScout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_add_black_24dp"
+            android:contentDescription="Agregar"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_margin="12dp"/>
+    </LinearLayout>
+</ScrollView>

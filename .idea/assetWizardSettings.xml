@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_exit_to_app_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_event_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="6c6c6c" />
-                            <entry key="outputName" value="ic_it_salir_black_24dp" />
+                            <entry key="color" value="6400a7" />
+                            <entry key="outputName" value="ic_fecha_nac_scout_24dp" />
                             <entry key="sourceFile" value="C:\Users\Tania Leif" />
                           </map>
                         </option>
