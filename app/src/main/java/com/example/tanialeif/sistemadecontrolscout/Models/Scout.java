@@ -6,21 +6,25 @@ public class Scout {
     public String apellidoMat;
     public String direccion;
     public String telefono;
-    public String CUM;
+    public String fechaNac;
+    public String cum;
     public String contrasenia;
+    public String nivel;
 
     public Scout(){
 
     }
 
-    public Scout(String nombre, String apellidoPat, String apellidoMat, String direccion, String telefono, String CUM, String contrasenia) {
+    public Scout(String nombre, String apellidoPat, String apellidoMat, String direccion, String telefono, String fechaNac, String cum, String contrasenia, String nivel) {
         this.nombre = nombre;
         this.apellidoPat = apellidoPat;
         this.apellidoMat = apellidoMat;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.CUM = CUM;
+        this.fechaNac = fechaNac;
+        this.cum = cum;
         this.contrasenia = contrasenia;
+        this.nivel = nivel;
     }
 
     public String getNombre() {
@@ -63,12 +67,20 @@ public class Scout {
         this.telefono = telefono;
     }
 
-    public String getCUM() {
-        return CUM;
+    public String getFechaNac() {
+        return fechaNac;
     }
 
-    public void setCUM(String CUM) {
-        this.CUM = CUM;
+    public void setFechaNac(String fechaNac) {
+        this.fechaNac = fechaNac;
+    }
+
+    public String getCum() {
+        return cum;
+    }
+
+    public void setCUM(String cum) {
+        this.cum = cum;
     }
 
     public String getContrasenia() {
@@ -77,5 +89,13 @@ public class Scout {
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
     }
 }

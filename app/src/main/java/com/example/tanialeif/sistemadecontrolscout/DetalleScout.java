@@ -2,6 +2,7 @@ package com.example.tanialeif.sistemadecontrolscout;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +31,8 @@ public class DetalleScout extends AppCompatActivity implements AdapterView.OnIte
     Spinner spnNivel;
     Button btnFechaNac;
     TextView lblFechaNac;
+    FloatingActionButton btnAgregarScout;
+    EditText txtNombre, txtApellidoPat, txtApellidoMat, txtDireccion, txtTelefono, txtCum, txtContrasenia;
 
     final Context self = this;
 
@@ -40,7 +44,15 @@ public class DetalleScout extends AppCompatActivity implements AdapterView.OnIte
 
         spnNivel = (Spinner)findViewById(R.id.spnNivelScout);
         btnFechaNac = (Button)findViewById(R.id.btnFechaNacScout);
+        btnAgregarScout = (FloatingActionButton) findViewById(R.id.btnAgregarScout);
         lblFechaNac = (TextView)findViewById(R.id.lblFechaNacScout);
+        txtNombre = (EditText)findViewById(R.id.txtNombreScout);
+        txtApellidoPat = (EditText)findViewById(R.id.txtApellidoPatScout);
+        txtApellidoMat = (EditText)findViewById(R.id.txtApellidoMatScout);
+        txtDireccion = (EditText)findViewById(R.id.txtDireccionScout);
+        txtTelefono = (EditText)findViewById(R.id.txtTelefonoScout);
+        txtCum = (EditText)findViewById(R.id.txtCumScout);
+        txtContrasenia = (EditText)findViewById(R.id.txtContraseniaScout);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.niveles, android.R.layout.simple_spinner_item);
@@ -66,6 +78,24 @@ public class DetalleScout extends AppCompatActivity implements AdapterView.OnIte
                 datePickerDialog.show();
             }
         });
+
+        btnAgregarScout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Scout scout = new Scout();
+                scout.nombre = txtNombre.getText().toString();
+                scout.apellidoPat = txtApellidoPat.getText().toString();
+                scout.apellidoMat = txtApellidoMat.getText().toString();
+                scout.direccion = txtDireccion.getText().toString();
+                scout.telefono = txtTelefono.getText().toString();
+                scout.fechaNac = lblFechaNac.getText().toString();
+                scout.cum = txtCum.getText().toString();
+                scout.contrasenia = txtContrasenia.getText().toString();
+                scout.nivel = spnNivel.getSelectedItem().toString();
+
+                insertarScout(scout);
+            }
+        });
     }
 
     private void inicializarFirebase(){
@@ -75,7 +105,15 @@ public class DetalleScout extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void insertarScout(Scout scout){
-        databaseReference.child("Scouts").child(scout.CUM).setValue(scout);
+        databaseReference.child("Scouts").child(scout.cum).setValue(scout);
+        txtNombre.setText("");
+        txtApellidoPat.setText("");
+        txtApellidoMat.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+        lblFechaNac.setText("--/--/--");
+        txtCum.setText("");
+        txtContrasenia.setText("");
         Toast.makeText(this, "Se agregó a " + scout.nombre, Toast.LENGTH_SHORT).show();
     }
 
