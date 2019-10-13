@@ -2,6 +2,7 @@ package com.example.tanialeif.sistemadecontrolscout;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
+import com.example.tanialeif.sistemadecontrolscout.TabsAdmin.TabObjetivos;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,6 +36,8 @@ public class DetalleScout extends AppCompatActivity implements AdapterView.OnIte
     TextView lblFechaNac;
     FloatingActionButton btnAgregarScout;
     EditText txtNombre, txtApellidoPat, txtApellidoMat, txtDireccion, txtTelefono, txtCum, txtContrasenia;
+
+    Boolean isEdit;
 
     final Context self = this;
 
@@ -93,15 +98,54 @@ public class DetalleScout extends AppCompatActivity implements AdapterView.OnIte
                 scout.contrasenia = txtContrasenia.getText().toString();
                 scout.nivel = spnNivel.getSelectedItem().toString();
 
-                insertarScout(scout);
+                if(validar()) {
+                    insertarScout(scout);
+                }
+                else {
+                    Toast.makeText(DetalleScout.this, "Datos faltantes", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        isEdit = getIntent().getBooleanExtra("isEdit",false);
+        if(isEdit){
+            llenarDatos();
+        }
     }
 
     private void inicializarFirebase(){
         FirebaseApp.initializeApp(this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
+    }
+
+    private boolean validar(){
+        boolean correcto = true;
+        if( txtNombre.getText().toString().trim().length() == 0
+                || txtApellidoPat.getText().toString().trim().length() == 0
+                || txtApellidoMat.getText().toString().trim().length() == 0
+                || txtDireccion.getText().toString().trim().length() == 0
+                || txtTelefono.getText().toString().trim().length() == 0
+                || lblFechaNac.getText().toString().trim().length() == 0
+                || txtCum.getText().toString().trim().length() == 0
+                || txtContrasenia.getText().toString().trim().length() == 0){
+            correcto = false;
+        }
+        return correcto;
+    }
+
+    private void llenarDatos(){
+        Bundle bundle = getIntent().getExtras();
+        Scout scout = (Scout) bundle.getSerializable("scout");
+        txtNombre.setText(scout.getNombre());
+        txtApellidoPat.setText(scout.getApellidoPat());
+        txtApellidoMat.setText(scout.getApellidoMat());
+        txtDireccion.setText(scout.getDireccion());
+        txtTelefono.setText(scout.getTelefono());
+        lblFechaNac.setText(scout.getFechaNac());
+        txtCum.setText(scout.getCum());
+        txtContrasenia.setText(scout.getContrasenia());
+        txtCum.setEnabled(false);
     }
 
     private void insertarScout(Scout scout){
@@ -114,7 +158,7 @@ public class DetalleScout extends AppCompatActivity implements AdapterView.OnIte
         lblFechaNac.setText("--/--/--");
         txtCum.setText("");
         txtContrasenia.setText("");
-        Toast.makeText(this, "Se agregó a " + scout.nombre, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Se " + (isEdit ? "actualizó" : "agregó") +" a " + scout.nombre + " exitosamente.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

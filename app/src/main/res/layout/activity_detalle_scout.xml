@@ -171,7 +171,8 @@
             android:layout_gravity="end|bottom"
             android:src="@drawable/ic_add_black_24dp"
             android:contentDescription="Agregar"
-            android:backgroundTint="@color/colorPrimary"
-            android:layout_margin="12dp"/>
+            android:backgroundTint="@color/colorSecundary"
+            android:layout_margin="12dp"
+            android:elevation="5dp"/>
     </LinearLayout>
 </ScrollView>

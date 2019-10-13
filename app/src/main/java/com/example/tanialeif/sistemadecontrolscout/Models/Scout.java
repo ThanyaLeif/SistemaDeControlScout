@@ -1,6 +1,10 @@
 package com.example.tanialeif.sistemadecontrolscout.Models;
 
-public class Scout {
+import android.app.Service;
+
+import java.io.Serializable;
+
+public class Scout implements Serializable{
     public String nombre;
     public String apellidoPat;
     public String apellidoMat;
