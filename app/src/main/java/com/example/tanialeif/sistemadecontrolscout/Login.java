@@ -1,23 +1,20 @@
 package com.example.tanialeif.sistemadecontrolscout;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.tanialeif.sistemadecontrolscout.Models.Padre;
+import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
+import com.example.tanialeif.sistemadecontrolscout.Models.Scouter;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -101,31 +98,121 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
 
     private void validate(final String username, final String password, final String type){
         Toast.makeText(Login.this, type, Toast.LENGTH_SHORT).show();
-        databaseReference.child("Admin").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                boolean finded = false;
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Admin admin = snapshot.getValue(Admin.class);
-                    if(admin.username.equals(username) && admin.password.equals(password)){
-                        finded = true;
-                        break;
+        switch (userType){
+            case "Admin":
+                databaseReference.child("Admin").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boolean finded = false;
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Admin admin = snapshot.getValue(Admin.class);
+                            if (admin.getUsername().equals(username) && admin.getPassword().equals(password)) {
+                                finded = true;
+                                break;
+                            }
+                        }
+                        if (finded) {
+                            Intent intent = new Intent(Login.this, MenuPrincipalAdmin.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-                if(finded){
-                    Intent intent = new Intent(Login.this, MenuAdmin.class);
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "Scout":
+                databaseReference.child("Scouts").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boolean finded = false;
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                            Scout scout = snapshot.getValue(Scout.class);
+                            if(scout.getCum().equals(username) && scout.getContrasenia().equals(password)){
+                                finded = true;
+                                break;
+                            }
+                        }
+                        if(finded){
+                            Toast.makeText(Login.this, "Scout encontrado", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "Padre":
+                databaseReference.child("Padre").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boolean finded = false;
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                            Padre padre = snapshot.getValue(Padre.class);
+                            if(padre.getClave().equals(username) && padre.getContrasenia().equals(password)){
+                                finded = true;
+                                break;
+                            }
+                        }
+                        if(finded){
+                            Toast.makeText(Login.this, "Padre encontrado", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "Scouter":
+                databaseReference.child("Scouter").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boolean finded = false;
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                            Scouter scouter = snapshot.getValue(Scouter.class);
+                            if(scouter.getCUM().equals(username) && scouter.getContrasenia().equals(password)){
+                                finded = true;
+                                break;
+                            }
+                        }
+                        if(finded){
+                            Intent intent = new Intent(Login.this, MenuPrincipalScouter.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                break;
+            case "Asesor":
+                Toast.makeText(Login.this, "Area en proceso", Toast.LENGTH_SHORT).show();
+                break;
+                default:
+                    Toast.makeText(Login.this, "Opción inválida", Toast.LENGTH_SHORT).show();
+                    break;
+        }
+
     }
 
     @Override

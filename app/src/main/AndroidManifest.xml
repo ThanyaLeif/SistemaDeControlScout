@@ -11,17 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login"></activity>
-        <activity android:name=".MenuAdmin" />
-        <activity android:name=".MenuAjustesAdmin" />
-        <activity android:name=".DetalleScout"></activity>
-        <activity android:name=".MenuPrincipalScouter">
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MenuPrincipalAdmin" />
+        <activity android:name=".MenuAjustesAdmin" />
+        <activity android:name=".DetalleScout" />
+        <activity android:name=".MenuPrincipalScouter" />
+        <activity android:name=".MenuPrincipalScout" />
+        <activity android:name=".MenuPrincipalPadre" />
+        <activity android:name=".MenuPrincipalAsesor"></activity>
     </application>
 
 </manifest>

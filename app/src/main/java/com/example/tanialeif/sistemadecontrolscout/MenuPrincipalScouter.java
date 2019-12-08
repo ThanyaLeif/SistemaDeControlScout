@@ -82,7 +82,7 @@ public class MenuPrincipalScouter extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(MenuPrincipalScouter.this, "Error en la conexión", Toast.LENGTH_SHORT).show();
             }
         });
         Toast.makeText(MenuPrincipalScouter.this, "Conexion con la base de datos establecida", Toast.LENGTH_SHORT).show();
