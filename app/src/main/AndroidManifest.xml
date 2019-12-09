@@ -20,11 +20,12 @@
         </activity>
         <activity android:name=".MenuPrincipalAdmin" />
         <activity android:name=".MenuAjustesAdmin" />
-        <activity android:name=".DetalleScout" />
+        <activity android:name=".DetalleAgregarScout" />
         <activity android:name=".MenuPrincipalScouter" />
         <activity android:name=".MenuPrincipalScout" />
         <activity android:name=".MenuPrincipalPadre" />
-        <activity android:name=".MenuPrincipalAsesor"></activity>
+        <activity android:name=".MenuPrincipalAsesor" />
+        <activity android:name=".DetalleAgregarScouter"></activity>
     </application>
 
 </manifest>

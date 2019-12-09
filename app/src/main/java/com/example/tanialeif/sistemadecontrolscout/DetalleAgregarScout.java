@@ -2,7 +2,6 @@ package com.example.tanialeif.sistemadecontrolscout;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,21 +11,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
-import com.example.tanialeif.sistemadecontrolscout.TabsAdmin.TabObjetivos;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DetalleScout extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class DetalleAgregarScout extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -102,7 +98,7 @@ public class DetalleScout extends AppCompatActivity implements AdapterView.OnIte
                     insertarScout(scout);
                 }
                 else {
-                    Toast.makeText(DetalleScout.this, "Datos faltantes", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetalleAgregarScout.this, "Datos faltantes", Toast.LENGTH_SHORT).show();
                 }
             }
         });

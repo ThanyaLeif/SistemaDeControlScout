@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetalleAgregarScout"
+    tools:context=".DetalleAgregarScouter"
     android:orientation="vertical"
     android:background="#ddd">
 
@@ -26,7 +26,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtNombreScout"
+            android:id="@+id/txtNombreScouter"
             android:hint="Nombre"
             android:background="#fff"
             android:padding="15dp"
@@ -38,7 +38,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtApellidoPatScout"
+            android:id="@+id/txtApellidoPatScouter"
             android:hint="Apellido paterno"
             android:background="#fff"
             android:padding="15dp"
@@ -50,7 +50,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtApellidoMatScout"
+            android:id="@+id/txtApellidoMatScouter"
             android:hint="Apellido materno"
             android:background="#fff"
             android:padding="15dp"
@@ -62,7 +62,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtDireccionScout"
+            android:id="@+id/txtDireccionScouter"
             android:hint="Dirección"
             android:background="#fff"
             android:padding="15dp"
@@ -74,7 +74,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtTelefonoScout"
+            android:id="@+id/txtTelefonoScouter"
             android:hint="Telefono"
             android:inputType="phone"
             android:background="#fff"
@@ -84,45 +84,11 @@
             android:drawablePadding="15dp"
             android:drawableLeft="@drawable/ic_telefono_scout_black_24dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".50"
-                android:id="@+id/lblFechaNacScout"
-                android:text="--/--/--"
-                android:background="#fff"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="12dp"
-                android:layout_marginVertical="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="15dp"
-                android:drawablePadding="15dp"
-                android:drawableLeft="@drawable/ic_fecha_scout_24dp"
-                android:textAlignment="center"/>
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".50"
-                android:padding="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="5dp"
-                android:background="@color/colorPrimary"
-                android:id="@+id/btnFechaNacScout"
-                android:text="Fecha de nacimiento"
-                android:textColor="@color/white"/>
-        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="DATOS DEL SCOUT"
+            android:text="DATOS DEL SCOUTER"
             android:textColor="@color/colorPrimary"
             android:textAlignment="center"
             android:textSize="20dp"
@@ -132,7 +98,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtCumScout"
+            android:id="@+id/txtCumScouter"
             android:hint="CUM"
             android:background="#fff"
             android:padding="15dp"
@@ -144,7 +110,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtContraseniaScout"
+            android:id="@+id/txtContraseniaScouter"
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:background="#fff"
@@ -155,7 +121,7 @@
             android:drawableLeft="@drawable/ic_contrasenia_scout_24dp"/>
 
         <Spinner
-            android:id="@+id/spnNivelScout"
+            android:id="@+id/spnNivelScouter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
@@ -165,7 +131,7 @@
             android:drawablePadding="15dp" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btnAgregarScout"
+            android:id="@+id/btnAgregarScouter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
@@ -175,4 +141,5 @@
             android:layout_margin="12dp"
             android:elevation="5dp"/>
     </LinearLayout>
+
 </ScrollView>

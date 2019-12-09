@@ -113,6 +113,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                         }
                         if (finded) {
                             Intent intent = new Intent(Login.this, MenuPrincipalAdmin.class);
+                            //Intent intent = new Intent(Login.this, DetalleAgregarScouter.class);
                             startActivity(intent);
                         } else {
                             Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
@@ -139,7 +140,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                             }
                         }
                         if(finded){
-                            Toast.makeText(Login.this, "Scout encontrado", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Login.this, MenuPrincipalScout.class);
+                            startActivity(intent);
                         }
                         else{
                             Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
@@ -165,7 +167,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                             }
                         }
                         if(finded){
-                            Toast.makeText(Login.this, "Padre encontrado", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Login.this, MenuPrincipalPadre.class);
+                            startActivity(intent);
                         }
                         else{
                             Toast.makeText(Login.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
@@ -179,7 +182,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                 });
                 break;
             case "Scouter":
-                databaseReference.child("Scouter").addValueEventListener(new ValueEventListener() {
+                databaseReference.child("Scouters").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         boolean finded = false;

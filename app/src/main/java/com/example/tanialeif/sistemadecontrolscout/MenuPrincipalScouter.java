@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
 import com.example.tanialeif.sistemadecontrolscout.Adapters.ApadadorListaScout;
-import com.example.tanialeif.sistemadecontrolscout.R;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MenuPrincipalScouter extends AppCompatActivity {
@@ -56,7 +54,7 @@ public class MenuPrincipalScouter extends AppCompatActivity {
         btnNuevoScout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent detail = new Intent(MenuPrincipalScouter.this, DetalleScout.class);
+                Intent detail = new Intent(MenuPrincipalScouter.this, DetalleAgregarScout.class);
                 startActivity(detail);
             }
         });
@@ -111,7 +109,7 @@ public class MenuPrincipalScouter extends AppCompatActivity {
                             case 0:{
                                 /*Toast.makeText(MenuPrincipalScouter.this,
                                         "Se quiere EDITAR a: " + listaScouts.get(recyclerView.getChildAdapterPosition(v)).getNombre(), Toast.LENGTH_SHORT).show();*/
-                                Intent detail = new Intent(MenuPrincipalScouter.this, DetalleScout.class);
+                                Intent detail = new Intent(MenuPrincipalScouter.this, DetalleAgregarScout.class);
                                 detail.putExtra("isEdit", true);
                                 Bundle bundle = new Bundle();
                                 bundle.putSerializable("scout", listaScouts.get(recyclerView.getChildAdapterPosition(v)));
