@@ -1,6 +1,8 @@
 package com.example.tanialeif.sistemadecontrolscout.Models;
 
-public class Scouter {
+import java.io.Serializable;
+
+public class Scouter implements Serializable {
     public String nombre;
     public String apellidoPat;
     public String apellidoMat;
