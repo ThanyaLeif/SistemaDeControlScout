@@ -1,4 +1,4 @@
-package com.example.tanialeif.sistemadecontrolscout;
+package com.example.tanialeif.sistemadecontrolscout.MenuScouter;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
+import com.example.tanialeif.sistemadecontrolscout.R;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

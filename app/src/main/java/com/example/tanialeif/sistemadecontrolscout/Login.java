@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.tanialeif.sistemadecontrolscout.MenuScout.MenuPrincipalScout;
+import com.example.tanialeif.sistemadecontrolscout.MenuScouter.MenuPrincipalScouter;
 import com.example.tanialeif.sistemadecontrolscout.Models.Padre;
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
 import com.example.tanialeif.sistemadecontrolscout.Models.Scouter;

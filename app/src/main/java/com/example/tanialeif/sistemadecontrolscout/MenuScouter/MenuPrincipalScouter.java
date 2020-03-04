@@ -1,4 +1,4 @@
-package com.example.tanialeif.sistemadecontrolscout;
+package com.example.tanialeif.sistemadecontrolscout.MenuScouter;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
 import com.example.tanialeif.sistemadecontrolscout.Adapters.ApadadorListaScout;
+import com.example.tanialeif.sistemadecontrolscout.R;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

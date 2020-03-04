@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetalleAgregarInsignia"
+    android:orientation="vertical"
+    android:background="#ddd">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NUEVA INSIGNIA"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
+            android:padding="2dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtNombreInsignia"
+            android:hint="Nombre"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_it_insignia_black_24dp"
+            android:drawableTint="@color/colorPrimary"/>
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtDescripcionInsignia"
+            android:hint="Descripción"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_descripcion_insignia_24dp"
+            android:drawableTint="@color/colorPrimary"/>
+
+        <Spinner
+            android:id="@+id/spnNivelInsignia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OBJETIVOS"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:layout_margin="5dp"
+            android:padding="2dp"/>
+
+        <CheckBox
+            android:id="@+id/txbInsigniaCorporalidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Corporalidad"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"/>
+
+        <CheckBox
+            android:id="@+id/txbInsigniaCreatividad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Creatividad"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"/>
+
+        <CheckBox
+            android:id="@+id/txbInsigniaCaracter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Carácter"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"/>
+
+        <CheckBox
+            android:id="@+id/txbInsigniaAfectividad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Afectividad"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"/>
+
+        <CheckBox
+            android:id="@+id/txbInsigniaSociabilidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sociabilidad"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"/>
+
+        <CheckBox
+            android:id="@+id/txbInsigniaEspiritualidad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Espiritualidad"
+            android:background="#fff"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
+            android:drawablePadding="15dp"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnAgregarInsignia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_add_black_24dp"
+            android:contentDescription="Agregar"
+            android:backgroundTint="@color/colorSecundary"
+            android:layout_margin="12dp"
+            android:elevation="5dp"/>
+    </LinearLayout>
+</ScrollView>

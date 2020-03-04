@@ -47,6 +47,10 @@ public class MenuPrincipalAdmin extends AppCompatActivity implements NavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_admin);
 
+        inicializarBotones();
+        inicializarFirebase();
+        construirRecycler();
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerAdmin);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
@@ -55,10 +59,6 @@ public class MenuPrincipalAdmin extends AppCompatActivity implements NavigationV
 
         navigationView = findViewById(R.id.nav_view_admin);
         navigationView.setNavigationItemSelectedListener(this);
-
-        inicializarBotones();
-        inicializarFirebase();
-        construirRecycler();
     }
 
     @Override
@@ -78,12 +78,16 @@ public class MenuPrincipalAdmin extends AppCompatActivity implements NavigationV
         }
         else if(id == R.id.itmAjustesAdm){
             Toast.makeText(this, "Menu administrar ajustes", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MenuPrincipalAdmin.this, MenuAjustesAdmin.class);
+            startActivity(intent);
         }
         else if(id == R.id.itmInsigniasAdm){
-            Toast.makeText(this, "Menu administrar insignias", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MenuPrincipalAdmin.this, DetalleAgregarInsignia.class);
+            startActivity(intent);
         }
         else if(id == R.id.itmSalirAdm){
-            Toast.makeText(this, "Salir", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MenuPrincipalAdmin.this, Login.class);
+            startActivity(intent);
         }
         return false;
     }

@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MenuPrincipalAdmin">
+
+    <include layout="@layout/content_scouter" />
     
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view_admin"
@@ -19,29 +21,5 @@
         android:layout_gravity="start">
     </android.support.design.widget.NavigationView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerListaScouters"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btnNuevoScouter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:src="@drawable/ic_add_black_24dp"
-            android:contentDescription="Agregar"
-            android:backgroundTint="@color/colorSecundary"
-            android:layout_margin="12dp"
-            android:elevation="5dp"/>
-
-    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

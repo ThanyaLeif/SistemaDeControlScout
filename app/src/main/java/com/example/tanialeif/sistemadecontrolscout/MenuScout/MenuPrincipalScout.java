@@ -1,7 +1,9 @@
-package com.example.tanialeif.sistemadecontrolscout;
+package com.example.tanialeif.sistemadecontrolscout.MenuScout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.tanialeif.sistemadecontrolscout.R;
 
 public class MenuPrincipalScout extends AppCompatActivity {
 
