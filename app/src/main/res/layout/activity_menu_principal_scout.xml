@@ -7,9 +7,25 @@
     android:orientation="vertical"
     tools:context=".MenuScout.MenuPrincipalScout">
 
-    <TextView
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabsScout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Menu scout"/>
+        android:background="@color/colorPrimary"
+        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorColor="@color/white"
+        app:tabTextColor="@color/white"
+        app:tabMode="fixed"
+        app:tabGravity="fill"></android.support.design.widget.TabLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#E0E0E0"></View>
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerScout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
 </LinearLayout>
