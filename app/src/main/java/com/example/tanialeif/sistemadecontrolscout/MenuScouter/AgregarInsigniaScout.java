@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.tanialeif.sistemadecontrolscout.Adapters.AdaptadorListaInsigniasScout;
 import com.example.tanialeif.sistemadecontrolscout.Adapters.ApadadorListaScout;
 import com.example.tanialeif.sistemadecontrolscout.Models.Insignia;
+import com.example.tanialeif.sistemadecontrolscout.Models.InsigniaScout;
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
 import com.example.tanialeif.sistemadecontrolscout.R;
 import com.google.firebase.FirebaseApp;
@@ -24,8 +25,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class AgregarInsigniaScout extends AppCompatActivity {
+
+    Scout scout;
 
     ArrayList<Insignia> listaInsignias;
     RecyclerView recyclerView;
@@ -37,6 +41,9 @@ public class AgregarInsigniaScout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_insignia_scout);
+
+        Bundle bundle = getIntent().getExtras();
+        scout = (Scout) bundle.getSerializable("scout");
 
         inicializarFirebase();
         construirRecycler();
@@ -88,7 +95,7 @@ public class AgregarInsigniaScout extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case 0:{
-                                Toast.makeText(AgregarInsigniaScout.this, "hacer que agrege insignia", Toast.LENGTH_SHORT).show();
+                                agregarInsignia(listaInsignias.get(recyclerView.getChildAdapterPosition(v)));
                                 break;
                             }
                         }
@@ -99,6 +106,14 @@ public class AgregarInsigniaScout extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(adaptador);
+    }
+
+    private void agregarInsignia(Insignia insignia){
+        InsigniaScout insigniaScout = new InsigniaScout();
+        insigniaScout.setUidInsignia(insignia.getUid());
+        insigniaScout.setCum(scout.getCum());
+        insigniaScout.setRel(UUID.randomUUID().toString());
+        databaseReference.child("InsigniasScouts").child(insigniaScout.rel).setValue(insigniaScout);
     }
 
 }

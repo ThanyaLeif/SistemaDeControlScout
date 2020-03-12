@@ -127,6 +127,9 @@ public class MenuPrincipalScouter extends AppCompatActivity {
                             }
                             case 2:{
                                 Intent detail = new Intent(MenuPrincipalScouter.this, AgregarInsigniaScout.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("scout", listaScouts.get(recyclerView.getChildAdapterPosition(v)));
+                                detail.putExtras(bundle);
                                 startActivity(detail);
                                 break;
                             }
