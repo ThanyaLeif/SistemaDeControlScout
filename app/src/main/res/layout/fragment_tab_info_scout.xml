@@ -12,15 +12,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtInfoScout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Informacion scout"
-            android:gravity="center"
-            android:textColor="@color/darkgray"
-            android:textSize="34dp"/>
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DATOS PERSONALES"
@@ -28,14 +19,16 @@
             android:textAlignment="center"
             android:textSize="20dp"
             android:layout_margin="5dp"
-            android:padding="2dp"/>
+            android:padding="2dp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtInfoScoutNombre"
+            android:enabled="false"
             android:hint="Nombre"
             android:background="#fff"
+            android:textColor="#000"
             android:padding="15dp"
             android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="15dp"
@@ -46,8 +39,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtInfoScoutApellidoPat"
+            android:enabled="false"
             android:hint="Apellido paterno"
             android:background="#fff"
+            android:textColor="#000"
             android:padding="15dp"
             android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="15dp"
@@ -58,8 +53,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtInfoScoutApellidoMat"
+            android:enabled="false"
             android:hint="Apellido materno"
             android:background="#fff"
+            android:textColor="#000"
             android:padding="15dp"
             android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="15dp"
@@ -70,8 +67,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtInfoScoutDireccion"
+            android:enabled="false"
             android:hint="Dirección"
             android:background="#fff"
+            android:textColor="#000"
             android:padding="15dp"
             android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="15dp"
@@ -82,9 +81,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtInfoScoutTelefono"
+            android:enabled="false"
             android:hint="Telefono"
             android:inputType="phone"
             android:background="#fff"
+            android:textColor="#000"
             android:padding="15dp"
             android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="15dp"
@@ -100,9 +101,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".50"
-                android:id="@+id/lblInfoScoutFechaNac"
+                android:id="@+id/txtInfoScoutFechaNac"
+                android:enabled="false"
                 android:text="--/--/--"
                 android:background="#fff"
+                android:textColor="#000"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="12dp"
                 android:layout_marginVertical="5dp"
@@ -128,24 +131,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtInfoScoutCum"
+            android:enabled="false"
             android:hint="CUM"
             android:background="#fff"
+            android:textColor="#000"
             android:padding="15dp"
             android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="15dp"
             android:drawablePadding="15dp"
             android:drawableLeft="@drawable/ic_usuario_scout_24dp"/>
 
-
-        <Spinner
-            android:id="@+id/spnInfoScoutNivel"
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/txtInfoScoutNivel"
+            android:enabled="false"
+            android:hint="Nivel"
             android:background="#fff"
+            android:textColor="#000"
             android:padding="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginVertical="5dp"
             android:layout_marginHorizontal="15dp"
-            android:drawablePadding="15dp" />
+            android:drawablePadding="15dp"
+            android:drawableLeft="@drawable/ic_person_white_24dp"/>
 
     </LinearLayout>
 

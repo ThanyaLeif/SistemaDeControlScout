@@ -134,8 +134,9 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         boolean finded = false;
+                        Scout scout = new Scout();
                         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                            Scout scout = snapshot.getValue(Scout.class);
+                            scout = snapshot.getValue(Scout.class);
                             if(scout.getCum().equals(username) && scout.getContrasenia().equals(password)){
                                 finded = true;
                                 break;
@@ -143,6 +144,9 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemSelect
                         }
                         if(finded){
                             Intent intent = new Intent(Login.this, MenuPrincipalScout.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("scout", scout);
+                            intent.putExtras(bundle);
                             startActivity(intent);
                         }
                         else{

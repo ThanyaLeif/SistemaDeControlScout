@@ -4,7 +4,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
 import com.example.tanialeif.sistemadecontrolscout.R;
 
 import java.time.Instant;
@@ -12,11 +14,15 @@ import java.time.Instant;
 public class MenuPrincipalScout extends AppCompatActivity {
 
     private TabLayout tabLayout;
+    private Scout scout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal_scout);
+
+        Bundle bundle = getIntent().getExtras();
+        scout = (Scout) bundle.getSerializable("scout");
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerScout);
         loadViewPager(viewPager);
@@ -39,7 +45,7 @@ public class MenuPrincipalScout extends AppCompatActivity {
 
     private TabInfoFragment newInstanceInfo(String title){
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
+        bundle.putSerializable("scout", scout);
         TabInfoFragment tabInfoFragment = new TabInfoFragment();
         tabInfoFragment.setArguments(bundle);
 
