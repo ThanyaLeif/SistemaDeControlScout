@@ -32,17 +32,26 @@ public class MenuPrincipalScout extends AppCompatActivity {
 
     private void loadViewPager(ViewPager viewPager){
         ViewPagerAdapterScout adapterScout = new ViewPagerAdapterScout(getSupportFragmentManager());
-        adapterScout.addFragment(newInstance("info"));
-        adapterScout.addFragment(newInstance("insignias"));
+        adapterScout.addFragment(newInstanceInfo("info"));
+        adapterScout.addFragment(newInstanceInsig("insignias"));
         viewPager.setAdapter(adapterScout);
     }
 
-    private TabInfoFragment newInstance(String title){
+    private TabInfoFragment newInstanceInfo(String title){
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
         TabInfoFragment tabInfoFragment = new TabInfoFragment();
         tabInfoFragment.setArguments(bundle);
 
         return tabInfoFragment;
+    }
+
+    private TabInsigniasFragment newInstanceInsig(String title){
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        TabInsigniasFragment tabInsigniasFragment = new TabInsigniasFragment();
+        tabInsigniasFragment.setArguments(bundle);
+
+        return tabInsigniasFragment;
     }
 }
