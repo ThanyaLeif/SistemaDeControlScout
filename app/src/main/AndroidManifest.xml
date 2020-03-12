@@ -27,6 +27,7 @@
         <activity android:name=".MenuPrincipalAsesor" />
         <activity android:name=".DetalleAgregarScouter" />
         <activity android:name=".DetalleAgregarInsignia" />
+        <activity android:name=".MenuScouter.AgregarInsigniaScout"></activity>
     </application>
 
 </manifest>

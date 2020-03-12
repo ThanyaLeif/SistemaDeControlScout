@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.tanialeif.sistemadecontrolscout.Models.Insignia;
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
 import com.example.tanialeif.sistemadecontrolscout.Adapters.ApadadorListaScout;
 import com.example.tanialeif.sistemadecontrolscout.R;
@@ -100,7 +101,9 @@ public class MenuPrincipalScouter extends AppCompatActivity {
             public boolean onLongClick(final View v) {
                 CharSequence[] opciones = new CharSequence[]{
                         "Editar",
-                        "Eliminar"
+                        "Eliminar",
+                        "Agregar insignia",
+                        "Liminar insignia"
                 };
                 AlertDialog.Builder menu = new AlertDialog.Builder(MenuPrincipalScouter.this);
                 menu.setItems(opciones, new DialogInterface.OnClickListener() {
@@ -120,6 +123,11 @@ public class MenuPrincipalScouter extends AppCompatActivity {
                             }
                             case 1:{
                                 eliminarScout(listaScouts.get(recyclerView.getChildAdapterPosition(v)));
+                                break;
+                            }
+                            case 2:{
+                                Intent detail = new Intent(MenuPrincipalScouter.this, AgregarInsigniaScout.class);
+                                startActivity(detail);
                                 break;
                             }
                         }
