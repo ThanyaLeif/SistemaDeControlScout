@@ -1,6 +1,9 @@
 package com.example.tanialeif.sistemadecontrolscout;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.constraint.solver.widgets.ChainHead;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +11,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,6 +30,11 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri mImageUri;
+
+    ImageView imgInsignia;
+    Button btnSeleccionarImagenInsignia;
     Spinner spnNivel;
     FloatingActionButton btnAgregarInsignia;
     EditText txtNombre, txtDetalle;
@@ -40,6 +50,8 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
         setContentView(R.layout.activity_detalle_agregar_insignia);
         inicializarFirebase();
 
+        imgInsignia = (ImageView)findViewById(R.id.imgInsignia);
+        btnSeleccionarImagenInsignia = (Button)findViewById(R.id.btnSeleccionarImagenInsignia);
         spnNivel = (Spinner) findViewById(R.id.spnNivelInsignia);
         btnAgregarInsignia = (FloatingActionButton) findViewById(R.id.btnAgregarInsignia);
         txtNombre = (EditText) findViewById(R.id.txtNombreInsignia);
@@ -56,6 +68,13 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnNivel.setAdapter(adapter);
         spnNivel.setOnItemSelectedListener(this);
+
+        btnSeleccionarImagenInsignia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirSeleccionadorImagen();
+            }
+        });
 
         btnAgregarInsignia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +144,23 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
         txbSociabilidad.setChecked(false);
         txbEspiritualidad.setChecked(false);
         Toast.makeText(this, "Se " + (isEdit ? "actualizó" : "agregó") +" a " + insignia.nombre + " exitosamente.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void abrirSeleccionadorImagen(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null){
+            mImageUri = data.getData();
+            imgInsignia.setImageURI(mImageUri);
+        }
     }
 
     @Override

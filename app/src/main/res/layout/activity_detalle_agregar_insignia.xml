@@ -22,6 +22,25 @@
             android:layout_margin="5dp"
             android:padding="2dp"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgInsignia"
+            android:layout_marginVertical="5dp"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSeleccionarImagenInsignia"
+            android:layout_gravity="center"
+            android:text="Seleccionar imagen"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:layout_weight=".50"
+            android:padding="5dp"
+            android:layout_marginBottom="5dp" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

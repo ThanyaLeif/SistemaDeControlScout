@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
 import com.example.tanialeif.sistemadecontrolscout.R;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.Instant;
 
@@ -15,6 +18,9 @@ public class MenuPrincipalScout extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private Scout scout;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +30,19 @@ public class MenuPrincipalScout extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         scout = (Scout) bundle.getSerializable("scout");
 
+        inicializarFirebase();
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerScout);
         loadViewPager(viewPager);
         tabLayout = (TabLayout)findViewById(R.id.tabsScout);
         tabLayout.setupWithViewPager(viewPager);
         tabNames();
+    }
+
+    private void inicializarFirebase(){
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
     }
 
     private void tabNames(){
@@ -54,10 +68,11 @@ public class MenuPrincipalScout extends AppCompatActivity {
 
     private TabInsigniasFragment newInstanceInsig(String title){
         Bundle bundle = new Bundle();
-        bundle.putString("title", title);
+        bundle.putSerializable("scout", scout);
         TabInsigniasFragment tabInsigniasFragment = new TabInsigniasFragment();
         tabInsigniasFragment.setArguments(bundle);
 
         return tabInsigniasFragment;
     }
+
 }
