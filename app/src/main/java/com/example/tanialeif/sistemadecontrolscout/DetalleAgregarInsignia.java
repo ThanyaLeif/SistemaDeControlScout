@@ -1,14 +1,17 @@
 package com.example.tanialeif.sistemadecontrolscout;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.solver.widgets.ChainHead;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -19,9 +22,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.tanialeif.sistemadecontrolscout.Models.Insignia;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
@@ -29,6 +38,9 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+
+    private StorageReference mStorageRef;
+    private StorageTask mUploadTask;
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri mImageUri;
@@ -62,6 +74,8 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
         txbAfectividad = (CheckBox) findViewById(R.id.txbInsigniaAfectividad);
         txbSociabilidad = (CheckBox) findViewById(R.id.txbInsigniaSociabilidad);
         txbEspiritualidad = (CheckBox) findViewById(R.id.txbInsigniaEspiritualidad);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.niveles, android.R.layout.simple_spinner_item);
@@ -133,17 +147,43 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
         txbSociabilidad.setChecked(insignia.sociabilidad);
     }
 
-    private void insertarInsignia(Insignia insignia){
-        databaseReference.child("Insignias").child(insignia.uid).setValue(insignia);
-        txtNombre.setText("");
-        txtDetalle.setText("");
-        txbCorporalidad.setChecked(false);
-        txbCreatividad.setChecked(false);
-        txbCaracter.setChecked(false);
-        txbAfectividad.setChecked(false);
-        txbSociabilidad.setChecked(false);
-        txbEspiritualidad.setChecked(false);
-        Toast.makeText(this, "Se " + (isEdit ? "actualizó" : "agregó") +" a " + insignia.nombre + " exitosamente.", Toast.LENGTH_SHORT).show();
+    private void insertarInsignia(final Insignia insignia){
+
+        if(mImageUri != null){
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." +
+                    obtenerExtension(mImageUri));
+
+            mUploadTask = fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            insignia.urlImagen = taskSnapshot.getDownloadUrl().toString();
+
+                            databaseReference.child("Insignias").child(insignia.uid).setValue(insignia);
+                            txtNombre.setText("");
+                            txtDetalle.setText("");
+                            txbCorporalidad.setChecked(false);
+                            txbCreatividad.setChecked(false);
+                            txbCaracter.setChecked(false);
+                            txbAfectividad.setChecked(false);
+                            txbSociabilidad.setChecked(false);
+                            txbEspiritualidad.setChecked(false);
+
+                            Toast.makeText(self, "Se " + (isEdit ? "actualizó" : "agregó") +" a " + insignia.nombre + " exitosamente.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(self, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+        else{
+            Toast.makeText(self, "Imagen no seleccionada", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
     private void abrirSeleccionadorImagen(){
@@ -160,6 +200,36 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
                 && data != null && data.getData() != null){
             mImageUri = data.getData();
             imgInsignia.setImageURI(mImageUri);
+        }
+    }
+
+    private String obtenerExtension(Uri uri){
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void subirImagen(){
+        if(mImageUri != null){
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." +
+                obtenerExtension(mImageUri));
+
+            mUploadTask = fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(self, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+        else{
+            Toast.makeText(self, "Imagen no seleccionada", Toast.LENGTH_SHORT).show();
         }
     }
 

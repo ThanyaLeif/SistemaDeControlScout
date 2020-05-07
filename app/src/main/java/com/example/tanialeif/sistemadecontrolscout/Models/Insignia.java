@@ -6,6 +6,7 @@ public class Insignia implements Serializable {
     public String uid;
     public String nombre;
     public String descripcion;
+    public String urlImagen;
     public String nivel;
     public boolean corporalidad;
     public boolean creatividad;
@@ -30,6 +31,30 @@ public class Insignia implements Serializable {
         this.afectividad = afectividad;
         this.sociabilidad = sociabilidad;
         this.espiritualidad = espiritualidad;
+    }
+
+    public Insignia(String uid, String nombre, String descripcion, String urlImagen, String nivel,
+                    boolean corporalidad, boolean creatividad, boolean caracter, boolean afectividad,
+                    boolean sociabilidad, boolean espiritualidad) {
+        this.uid = uid;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.urlImagen = urlImagen;
+        this.nivel = nivel;
+        this.corporalidad = corporalidad;
+        this.creatividad = creatividad;
+        this.caracter = caracter;
+        this.afectividad = afectividad;
+        this.sociabilidad = sociabilidad;
+        this.espiritualidad = espiritualidad;
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
     }
 
     public String getUid() {
