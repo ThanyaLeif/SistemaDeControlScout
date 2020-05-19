@@ -16,49 +16,57 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.tanialeif.sistemadecontrolscout.Adapters.AdaptadorListaScouter;
-import com.example.tanialeif.sistemadecontrolscout.Models.Scout;
-import com.example.tanialeif.sistemadecontrolscout.Models.Scouter;
+
+import com.example.tanialeif.sistemadecontrolscout.Adapters.AdaptadorListaInsignias;
+import com.example.tanialeif.sistemadecontrolscout.Models.Insignia;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class MenuPrincipalAdmin extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MenuAdministrarInsignias extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     private NavigationView navigationView;
 
-    ArrayList <Scouter> listaScouters;
+    ArrayList<Insignia> listaInsignias;
     RecyclerView recyclerView;
 
+    FirebaseStorage mStorage;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    FloatingActionButton btnNuevoScouter;
+    FloatingActionButton btnAgregarInsignia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_admin);
+        setContentView(R.layout.activity_menu_administrar_insignias);
 
         inicializarBotones();
         inicializarFirebase();
         construirRecycler();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerAdmin);
+        mStorage = FirebaseStorage.getInstance();
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerInsignias);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView = findViewById(R.id.nav_view_admin);
+        navigationView = findViewById(R.id.nav_view_admin_insignias);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -69,24 +77,24 @@ public class MenuPrincipalAdmin extends AppCompatActivity implements NavigationV
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         if(id == R.id.itmScouterAdm){
-            Toast.makeText(this, "Menu administrar scouter", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MenuAdministrarInsignias.this, MenuPrincipalAdmin.class);
+            startActivity(intent);
         }
         else if(id == R.id.itmAjustesAdm){
             Toast.makeText(this, "Menu administrar ajustes", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MenuPrincipalAdmin.this, MenuAjustesAdmin.class);
+            Intent intent = new Intent(MenuAdministrarInsignias.this, MenuAjustesAdmin.class);
             startActivity(intent);
         }
         else if(id == R.id.itmInsigniasAdm){
-            Intent intent = new Intent(MenuPrincipalAdmin.this, MenuAdministrarInsignias.class);
+            Intent intent = new Intent(MenuAdministrarInsignias.this, DetalleAgregarInsignia.class);
             startActivity(intent);
         }
         else if(id == R.id.itmSalirAdm){
-            Intent intent = new Intent(MenuPrincipalAdmin.this, Login.class);
+            Intent intent = new Intent(MenuAdministrarInsignias.this, Login.class);
             startActivity(intent);
         }
         return false;
@@ -99,75 +107,86 @@ public class MenuPrincipalAdmin extends AppCompatActivity implements NavigationV
     }
 
     private void inicializarBotones(){
-        btnNuevoScouter = (FloatingActionButton) findViewById(R.id.btnNuevoScouter);
-        btnNuevoScouter.setOnClickListener(new View.OnClickListener() {
+        btnAgregarInsignia = (FloatingActionButton)findViewById(R.id.btnNuevaInsignia);
+        btnAgregarInsignia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent detail = new Intent(MenuPrincipalAdmin.this, DetalleAgregarScouter.class);
+                Intent detail = new Intent(MenuAdministrarInsignias.this, DetalleAgregarInsignia.class);
                 startActivity(detail);
             }
         });
     }
 
-    private void eliminarScouter(Scouter scouter){
-        databaseReference.child("Scouters").child(scouter.getCUM()).removeValue();
-        Toast.makeText(MenuPrincipalAdmin.this, "Se eliminó correctamente a " + scouter.getNombre(), Toast.LENGTH_SHORT).show();
-        recreate();
+    private void eliminarInsignia(final Insignia insignia){
+
+        StorageReference imageRef = mStorage.getReferenceFromUrl(insignia.urlImagen);
+        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                databaseReference.child("Insignias").child(insignia.uid).removeValue();
+                Toast.makeText(MenuAdministrarInsignias.this, "Se eliminó correctamente la insignia " + insignia.nombre, Toast.LENGTH_SHORT).show();
+                recreate();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MenuAdministrarInsignias.this, "No fue posible eliminar insignia " + insignia.nombre, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
-    ArrayList <Scouter> llenarLista(){
-        final ArrayList <Scouter> scouters = new ArrayList<Scouter>();
-        databaseReference.child("Scouters").addValueEventListener(new ValueEventListener() {
+    ArrayList<Insignia> llenarLista(){
+        final ArrayList<Insignia> insignias = new ArrayList<>();
+        databaseReference.child("Insignias").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Scouter scouter = snapshot.getValue(Scouter.class);
-                    scouters.add(scouter);
+                    Insignia insignia = snapshot.getValue(Insignia.class);
+                    insignias.add(insignia);
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(MenuPrincipalAdmin.this, "Error en la conexión", Toast.LENGTH_SHORT).show();
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(MenuAdministrarInsignias.this, "Error en la conexión", Toast.LENGTH_SHORT).show();
             }
         });
-        return scouters;
+
+        return insignias;
     }
 
     private void construirRecycler(){
-        listaScouters = llenarLista();
+        listaInsignias = llenarLista();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerListaScouters);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerListaInsignias);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        AdaptadorListaScouter adaptador = new AdaptadorListaScouter(listaScouters);
+        AdaptadorListaInsignias adaptador = new AdaptadorListaInsignias(listaInsignias);
         adaptador.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(final View v) {
-                 CharSequence[] opciones = new CharSequence[]{
-                         "Editar",
-                         "Eliminar"
-                 };
-                AlertDialog.Builder menu = new AlertDialog.Builder(MenuPrincipalAdmin.this);
+                CharSequence opciones[] = {
+                        "Editar",
+                        "Eliminar"
+                };
+                AlertDialog.Builder menu = new AlertDialog.Builder(MenuAdministrarInsignias.this);
                 menu.setItems(opciones, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
-                            case 0:{
-                                Intent detail = new Intent(MenuPrincipalAdmin.this, DetalleAgregarScouter.class);
+                            case 0:
+                                Intent detail = new Intent(MenuAdministrarInsignias.this, DetalleAgregarInsignia.class);
                                 detail.putExtra("isEdit", true);
                                 Bundle bundle = new Bundle();
-                                bundle.putSerializable("scouter", listaScouters.get(recyclerView.getChildAdapterPosition(v)));
+                                bundle.putSerializable("insignia", listaInsignias.get(recyclerView.getChildAdapterPosition(v)));
                                 detail.putExtras(bundle);
                                 startActivity(detail);
+                               break;
+                            case 1:
+                                eliminarInsignia(listaInsignias.get(recyclerView.getChildAdapterPosition(v)));
                                 break;
-                            }
-                            case 1:{
-                                eliminarScouter(listaScouters.get(recyclerView.getChildAdapterPosition(v)));
-                                break;
-                            }
                         }
-
                     }
                 });
                 menu.show();
@@ -176,4 +195,5 @@ public class MenuPrincipalAdmin extends AppCompatActivity implements NavigationV
         });
         recyclerView.setAdapter(adaptador);
     }
+
 }
