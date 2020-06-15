@@ -31,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.UUID;
 
@@ -145,6 +146,8 @@ public class DetalleAgregarInsignia extends AppCompatActivity implements Adapter
         txbEspiritualidad.setChecked(insignia.espiritualidad);
         txbAfectividad.setChecked(insignia.espiritualidad);
         txbSociabilidad.setChecked(insignia.sociabilidad);
+
+        Picasso.get().load(insignia.urlImagen).into(imgInsignia);
     }
 
     private void insertarInsignia(final Insignia insignia){
